@@ -21,11 +21,14 @@ property1 = Property.new({
 property1.save
 property2.save
 
+found_property = Property.find(2)
+found_property_2 = Property.find_by_address("37 Castle Terrace")
+# found_property_3 = Property.find_by_address("10 Downing Street")
 #
 # property1.number_of_bedrooms = '3'
 # property1.update
 
-property1.delete
+# property1.delete
 
 binding.pry
 nil

@@ -63,6 +63,32 @@ class Property
     db.prepare("delete_all", sql)
     db.exec_prepared("delete_all")
     db.close()
-  end 
+  end
+
+  def Property.find(id)
+    db = PG.connect({dbname: 'property_tracker', host: 'localhost'})
+    sql = "SELECT * FROM properties
+          WHERE id = $1"
+    values = [id]
+    db.prepare("find", sql)
+    properties = db.exec_prepared("find", values)[0]
+    db.close()
+    return Property.new(properties)
+  end
+
+  def Property.find_by_address(address)
+    db = PG.connect({dbname: 'property_tracker', host: 'localhost'})
+    sql = "SELECT * FROM properties
+          WHERE address = $1"
+    values = [address]
+    db.prepare("find_by_address", sql)
+    properties = db.exec_prepared("find_by_address", values)
+    db.close()
+    # if !properties
+      return Property.new(properties[0])
+    # else
+    #   return nil
+    # end
+  end
 
 end
